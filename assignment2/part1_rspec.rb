@@ -59,6 +59,8 @@ describe "Enumerable#palindrome?" do
     it "should not error for hashes" do
         h = {"one"=>1, "two"=>2}
         h.palindrome?.should be_false
+        h = {"one"=>1, "two"=>2, "one"=>1}
+        h.palindrome?.should be_true
     end
     
     it "should not care what type the enumeration encapsulates" do

@@ -32,10 +32,7 @@ end
 # section c)
 module Enumerable
   def palindrome?
-    if self.respond_to?(:reverse)
-      return self.reverse == self
-    else
-      return false
-    end
+    sa = self.to_a
+    return sa.reverse == sa
   end
 end
