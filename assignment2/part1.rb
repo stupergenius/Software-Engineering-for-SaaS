@@ -1,5 +1,4 @@
-# metaprogramming to the rescue!
-
+# section a)
 class Numeric
     @@currencies = {'yen' => 0.013, 'euro' => 1.292, 'rupee' => 0.019, 'dollar' => 1}
     
@@ -20,4 +19,23 @@ class Numeric
             super
         end
     end
+end
+
+# section b)
+class String
+  def palindrome?
+    stripped = self.downcase.gsub(/[^a-z]/ix, '')
+    return stripped == stripped.reverse
+  end
+end
+
+# section c)
+module Enumerable
+  def palindrome?
+    if self.respond_to?(:reverse)
+      return self.reverse == self
+    else
+      return false
+    end
+  end
 end

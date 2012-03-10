@@ -23,14 +23,47 @@ describe Numeric do
     end
     
     it "should be able to chain an :in message when converting" do
-        two_rupees = one_rupee * 2
-        
-        puts 2.euro.in(:yen)
-        
         1.dollar.in(:rupees).should eq (1/one_rupee)
-        2.dollars.in(:rupees).should eq (1/two_rupees)
-        2.rupees.in(:dollars).should eq two_rupees
-        1.euro.in(:rupees).should eq (one_euro * one_rupee)
-        2.euro.in(:yen).should eq (one_euro * 2 * one_yen)
+        2.dollars.in(:rupees).should eq (2/one_rupee)
+        2.rupees.in(:dollars).should eq (one_rupee * 2)
+        1.euro.in(:rupees).should eq (one_euro / one_rupee)
+        2.euro.in(:yen).should eq ((one_euro * 2) / one_yen)
+    end
+end
+
+describe "String#palindrome?" do
+    it "should create a palindrome? instance method on the String class" do
+        "foo".respond_to?(:palindrome?).should be_true
+    end
+    
+    it "should detect palindromes" do
+        "racecar".palindrome?.should be_true
+        "foobar".palindrome?.should be_false
+    end
+    
+    it "should not be case sensitive" do
+        "rAcEcar".palindrome?.should be_true
+    end
+end
+
+describe "Enumerable#palindrome?" do
+    it "should create a palindrome? instance method on the Enumerable mixin" do
+        [1,2].respond_to?(:palindrome?).should be_true
+    end
+    
+    it "should dected palindromes for enumerations" do
+        [1,2,3,2,1].palindrome?.should be_true
+        [1,2,3,2,2,1].palindrome?.should be_false
+    end
+    
+    it "should not error for hashes" do
+        h = {"one"=>1, "two"=>2}
+        h.palindrome?.should be_false
+    end
+    
+    it "should not care what type the enumeration encapsulates" do
+        [1,"two",3.1,3.1,"two",1].palindrome?.should be_true
+        [1,"two",nil,3.1,"two",1].palindrome?.should be_false
+        [1,"two",nil,nil,"two",1].palindrome?.should be_true
     end
 end
